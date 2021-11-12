@@ -1,0 +1,142 @@
+<h2>Exercise 59 - BINGO</h2>
+<p>
+    Your challenge is to implement the famous game of BINGO. 
+    In this version of the game, there are two players. 
+    Numbers are drawn at random, and each player marks the number if it appears in his board. 
+    The first player to mark all the numbers on his board, wins.
+</p>
+
+<p>Here is the suggested data structure: </p>
+    <pre class="code">
+        var gPlayers = [
+            {name: ‘Muki’, hitCount: 0, board: createBingoBoard()},
+            {name: ‘Puki, hitCount: 0, board: createBingoBoard()}
+        ]
+    </pre>
+
+<p>Every cell in board  will hold an object like <this:span class="code">{value: 17, isHit: false}</this:span></p>
+<p>
+    It is common practice to implement our code in several stages, 
+    starting with simplified version for some of the functions, 
+    which allow us to test other parts of our code first. 
+    Let’s try this approach:
+</p>
+<ol>
+    <li>
+        <p>
+            Implement the <span class="code">createBingoBoard()</span> function:
+            It returns a 5 by 5 matrix containing cell object as described above, 
+            with the numbers <span class="console">1 – 25</span> (Later on we will change it to <span class="console">1 – 99</span>).
+        </p>
+    </li>
+    <li>
+        <p>Implement the function <span class="code">printBingoBoard(board)</span> which prints the board by showing the number (value) in each cell.</p>
+        <p>If  isHit is true, add 'v' to the printed number.</p>
+        <p>
+            Check your function by manually setting a cell's isHit to true like this: 
+            <span class="code">gPlayers[0].board[0][0].isHit = true</span> and printing the board (remember you can run code from the console).
+        </p>
+        <p>Implement some empty (placeholder) functions:</p>
+        <ol>
+            <li><span class="code">drawNum()</span> code a simple function returning a fixed number (e.g. 17)</li>
+            <li><span class="code">markBoard()</span> an empty function for now.</li>
+            <li><span class="code">checkBingo()</span> a simple function returning true (note, that if it returns false  it will cause an infinite loop).</li>
+        </ol>
+    </li>
+    <li>
+        <p>
+            Implement the <span class="code">playBingo</span> function:
+        </p>
+        <!-- <pre class="code">
+            function playBingo(){
+                var isVictory = false
+                while(!isVictory){
+                    var calledNum = drawNum()
+                    for(var i = 0; i &lt; gPlayers.length && !isVictory; i++){
+                        var player = gPlayers[i]
+                        markBoard(player, calledNum)
+                        isVictory = checkBingo(player)
+                    }
+                }
+            }
+        </pre> -->
+        <div class="play-bingo-img"><img src="../assets/img/Play Bingo Function.png" alt=""></div>
+    </li>
+    <li>
+        <p>
+            Implement the <span class="code">markBoard</span> function:
+        </p>
+        <ol>
+            <li>If the board contains a cell with <span class="code">calledNum</span>  in its value, update that cell's <span class="code">isHit</span> value accordingly and increase the player’s <span class="code">hitCount</span> .</li>
+            <li>Use the <span class="code">printBingoBoard</span> function to debug your function and make sure it works correctly.</li>
+        </ol>
+    </li>
+    <li>
+        <p>
+            Implement the <span class="code">checkBingo</span> function – Just check if the player’s <span class="code">hitCount</span>  has reached 25.            
+        </p>
+    </li>
+    <li>
+        <p>
+            Implement the <span class="code">drawNum</span> function:                
+        </p>
+        <ol>
+            <li>We will later need this function to return a unique random number, so we will use an array - <span class="code">gNums</span>.</li>
+            <li>Add the function <span class="code">resetNums</span> which updates the global variable <span class="code">gNums</span> to be an array with the numbers 1 – 25. This function should be called at the beginning of <span class="code">createBoard</span> and also at the beginning of the <span class="code">playBingo</span> function.</li>
+            <li>The function <span class="code">drawNum</span> can just pop from that array for now (predictable order helps while developing)</li>
+        </ol>
+    </li>
+    <li>
+        <p>
+            Make sure you have a basic working game that ends after 25 iterations before moving on
+        </p>
+    </li>
+    <li>
+        <p>
+            Implement the following additions and modification:
+        </p>
+        <ol>
+            <li>
+                <p>
+                    The <span class="code">gNums</span> array should hold the numbers from 1 to 99.
+                </p>
+            </li>
+            <li>
+                <p>
+                    <span class="code">drawNum</span> should return a random number from the array. Use splice for that, to make sure the drawn numbers do not repeat.
+                </p>
+            <li>
+                <p>
+                    Print a happy greeting when a player –
+                </p>
+            </li>
+            <ol>
+                <li>completes a row – ‘Muki has completed a row!’.</li>
+                <li>completes the main diagonal – ‘Muki has completed the main diagonal!’</li>
+                <li>completes the secondary diagonal – ‘Muki has completed the secondary diagonal!’.</li>
+            </ol>
+            <li>
+                <p>
+                    Slow down the game so it feels more realistic and easy to follow:
+                </p>
+                <ol>
+                    <li>Use <span class="code">setInterval</span> instead of the while loop: <span class="code">var gameInterval = setInterval(playTurn, 1000)</span></li>
+                    <li>Use <span class="code">clearInterval(gameInterval)</span> when the game is over.</li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+    <li>
+        <p>
+            Finalizing
+        </p>
+        <ol>
+            <li>
+                <p>How easy would it be to make your game to work with a 6 by 6 Bingo board?</p>
+            </li>
+            <li>
+                <p>How easy would it be, to add more players?</p>
+            </li>
+        </ol>
+    </li>
+</ol>

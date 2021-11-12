@@ -1,0 +1,32 @@
+<h2>Exercise 52 - Monsters</h2>
+<p>Create an array of monsters with 4 monsters (use a <span class="code">createMonsters()</span> function).</p>
+<ol>
+    <li>
+        <p>Each monster object should have the following keys –</p>
+        <ul>
+            <li><span class="code">id</span> – a unique sequential number</li>
+            <li><span class="code">name</span> – a name that will be read from the user</li>
+            <li><span class="code">power</span> a random number (1 - 100)</li>
+        </ul>
+    </li>
+    <li>
+        <p>Implement the following functions:</p>
+        <ul>
+            <li><span class="code">createMonsters()</span></li>
+            <li><span class="code">createMonster(name, power)</span> – returns a new monster object. The name and power parameters are optional – set them to default values if they aren’t passed to the function.</li>
+            <li><span class="code">getMonsterById(id)</span> – scans the array for a monster  with the provided id and returns it.</li>
+            <li><span class="code">deleteMonster(id)</span> – the function removes the specified monster from the array.</li>
+            <li><span class="code">updateMonster(id, newPower)</span> – the function updates the specified monster, setting a new power.</li>
+        </ul>
+    </li>
+    <li>
+        <p>Write the function: <span class="code">findMostPowerful(monsters)</span>.</p>
+    </li>
+    <li>
+        <p>
+           Write the function: <span class="code">breedMonsters(monsterId1, monsterId2)</span>.
+           This function returns a new monster. The breeded monster's power is an average of its parents power. 
+           Its name is the beginning half of the first parent name, and the second half is the end of the second parent name.
+        </p>
+    </li>
+</ol>

@@ -1,0 +1,56 @@
+<h2>Exercise 54 - Airline</h2>
+<ol>
+    <p>
+        Build a data structure for an airline company with the enteties listed below. 
+        For each type of entity, define an object and implement a <span class="code">create</span> function. 
+    </p>
+    <li>
+        <p>
+            A <span class="code">Plane</span> object with the following keys: 
+        </p>
+        <ol type="i">
+            <li><span class="code">model</span></li>
+            <li><span class="code">seatCount</span></li>
+        </ol>
+        <p class="tip">
+            Tip: implement <span class="code">createPlane(model, seatCount)</span>
+        </p>
+    </li>
+    <li>
+        <p>A <span class="code">passenger</span> object –</p>
+        <ol type="i">
+            <li><span class="code">id</span>  –  composed of 7 random digits</li>
+            <li><span class="code">fullName</span></li>
+            <li><span class="code">flights</span>  –  an array of pointers to the relevant flight objects</li>
+        </ol>
+    </li>
+    <li>
+        <p>A <span class="code">flight</span> object –</p>
+        <ol type="i">
+            <li><span class="code">date</span></li>
+            <li><span class="code">departure</span>  – where the flights takes off from…</li>
+            <li><span class="code">destination</span>  – …and where it lands.</li>
+            <li><span class="code">plane</span>  –  a pointer to a plane object</li>
+            <li><span class="code">passengers</span>  – an array of pointers to the relevant passenger objects</li>
+        </ol>
+    </li>
+    <li>
+        <p>Initialize all variables with consistent data – <span class="code">date</span> should be 0, <span class="code">passengers</span> should be an empty array, etc…</p>
+        <ol type="i">
+            <li>Create an array of 5 passengers (<span class="code">gPassengers</span> is a good name) </li>
+            <li>Create an array of 2 planes.</li>
+            <li>Create an array of 2 flights. Each flight should have a plane property that points to a plane object, and a passengers property that points to a passengers array. </li>
+        </ol>
+        <p class="tip">TIP: first create a passenger with an empty flights array, and the flight with an empty passengers array, and then connect them. </p>
+    </li>
+    <li>
+        <p>Write the functions:</p>
+        <ol type="i">
+            <li><span class="code">bookFlight(flight, passenger)</span> – this function connects between the pointers of the passengers and their flights. </li>
+            <li><span class="code">getFrequentFlyers()</span> – returns the passengers with the maximal flights count. </li>
+            <li><span class="code">isFullyBooked(flight)</span> – checks if all seats are booked, and returns true if they are. Where would it make sense to invoke this function?</li>
+        </ol>
+    </li>
+</ol>
+<p>The following illustration may help understand the data structure:</p>
+<div class="airline-img"><img src="../assets/img/Airline.png" alt=""></div>

@@ -1,0 +1,25 @@
+<h2>Exercise 60 - Game of Life</h2>
+<p>
+    The Game of Life is a simulation of how a population of creatures evolves from 
+    one generation to the next, based on a set of simple rules.
+    This colony is described by a matrix of a user determined size, where each cell 
+    is either populated by a creature (marked by an asterisk <span class="console">'*'</span>), or vacant. 
+    As with any matrix, each cell can have 8 neighboring cells at the most.
+</p>
+<p>Start with a population of your choice, for example:</p>
+<div class="game-of-life"><img src="../assets/img/Game of Life.png" alt=""></div>
+<p>Here are the rules which govern the evolution of the colony:</p>
+<ol>
+    <li>if a creature has 0 – 2 neighboring creatures, it will die of loneliness and the cell which it occupies will become vacant in the next generation.</li>
+    <li>if a cell has 3 – 5 occupied neighboring cells, it will have a creature in it in the next generation – either a newborn creature or the creature which previously occupied it.</li>
+    <li>if a creature has 6 – 8 occupied neighboring creatures, it will suffocate and die, and the cell which it occupies will become vacant in the next generation.</li>
+</ol>
+<p class="tip">Tip: use  setInterval  to run a function which looks something like this:
+    <pre class="tip">
+        function play()
+            gBoard = runGeneration(gBoard)	
+            renderBoard(gBoard) 
+        }
+    </pre>
+</p>					
+<p class="tip">Tip: use a second matrix to generate the new generations of the colony so that you do not modify the current state of the colony while still calculating the next generation.</p>
