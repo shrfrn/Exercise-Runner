@@ -4,9 +4,13 @@ function includeHTML() {
     var prmExercises = exercises.map(elExercise => {
 
         return new Promise((resolve, reject) => {
-            const url = elExercise.getAttribute('data-include-html')
+            
+            const fileName = elExercise.getAttribute('data-include-html')
+            const path = window.location.pathname;
+            const url = path.substring(0, path.lastIndexOf('/')) + fileName
+            
             if(!url) {
-                console.log('no url');
+                console.log('bad url');
                 reject()
             }
             const xhr = new XMLHttpRequest()
