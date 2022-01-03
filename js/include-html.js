@@ -6,7 +6,7 @@ function includeHTML() {
         return new Promise((resolve, reject) => {
             
             const fileName = elExercise.getAttribute('data-include-html')
-            const path = window.location.pathname;
+            const path = window.location.pathname
             const url = path.substring(0, path.lastIndexOf('/')) + fileName
             
             if(!url) {

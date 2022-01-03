@@ -1,5 +1,6 @@
 'use strict'
 
+const debounceInterval = 600
 const gExerciseCount = 60
 const gIntersectionObserver = new IntersectionObserver(onScrollIntoView, { threshold: .1 })
 
@@ -8,6 +9,9 @@ var gScrollTimeout
 async function init() {
 
     addEventListener('scroll', detectScrollEnd)
+    addEventListener('keydown', onKeyDown)
+    addEventListener('keydown', debounce(jumpToExercise, debounceInterval))
+
     createExerciseArticles()
 
     var prmExercises = includeHTML()
@@ -32,9 +36,8 @@ function createExerciseArticles() {
         elExerciseSection.appendChild(elExercise)
 
         elExercise.id = 'ex-' + i
-        elExercise.classList.add('exercise')
-        elExercise.classList.add('main-content')
-        elExercise.setAttribute('data-include-html', `/exercises/${i}.html`)
+        elExercise.classList.add('exercise', 'main-content')
+        elExercise.setAttribute('data-include-html', `/exercises/${i > 9 ? i : '0' + i}.html`)
     }
 }
 function populateDropdown() {
@@ -51,24 +54,21 @@ function populateDropdown() {
         elOption.innerText = elTitle.innerText
         elDropdown.appendChild(elOption)
     }
-    onExSelect()
 }
 function onExSelect() {
 
-    const elSelector = document.querySelector('#exercise-selector')
-    const scriptNum = elSelector.value
-
     const elScriptRunner = document.querySelector('#script-runner')
-
+    
+    const scriptNum = document.querySelector('#exercise-selector').value
     const exId = '#ex-' + scriptNum
     const elExercise = document.querySelector(exId)
 
     gIntersectionObserver.disconnect()
 
-    setTimeout(() => elExercise.scrollIntoView({ behavior: "smooth", block: "start" }), 10) // dosn't work without interval
-
     elScriptRunner.onclick = addScript.bind(null, scriptNum)
     elScriptRunner.focus()
+
+    elExercise.scrollIntoView({ behavior: "smooth", block: "start" })
 }
 function detectScrollEnd() {
 
@@ -78,10 +78,33 @@ function detectScrollEnd() {
 }
 function onEndScroll() {
 
-    const exerciceTitles = document.querySelectorAll('.exercise h2')
-    exerciceTitles.forEach(ex => gIntersectionObserver.observe(ex))
+    const exerciseTitles = document.querySelectorAll('.exercise h2')
+    exerciseTitles.forEach(ex => gIntersectionObserver.observe(ex))
 
     hideLogo()
+}
+function onKeyDown(ev){
+
+    if(ev.key === 'c'|| ev.key === 'C') return copyExAsComment()
+    if(ev.key === 'r'|| ev.key === 'R') return clearConsole()
+    if(ev.key === 's'|| ev.key === 'S') return toggleSettings()
+
+    if(isNaN(ev.key)) return
+
+    showExNumber()
+    document.querySelector('.ex-number').innerText += ev.key
+}
+function jumpToExercise(){
+    const elExerciseSelector = document.querySelector('#exercise-selector')
+    const elExNumber = document.querySelector('.ex-number')
+
+    if(!isNaN(elExNumber.innerText)){
+        if(+elExNumber.innerText > 0 && +elExNumber.innerText <= gExerciseCount){
+            elExerciseSelector.value = +elExNumber.innerText
+            onExSelect()
+        }
+    }
+    hideExNumber()
 }
 function onScrollIntoView(entries) {
     const entry = entries.find(entry => entry.isIntersecting)
@@ -98,7 +121,7 @@ function addScript(scriptNum) {
     const elScript = document.createElement('script')
     elScript.type = 'text/javascript'
     elScript.className = 'studentScript'
-    elScript.src = 'ex/' + scriptNum + '.js'
+    elScript.src = 'ex/' + (scriptNum > 9 ? scriptNum : '0' + scriptNum) + '.js'
     document.head.appendChild(elScript)
 }
 function changeFontSize(diff) {
@@ -145,8 +168,17 @@ function clearConsole() {
     console.clear()
 }
 function toggleSettings(){
-    document.querySelector('.settings').classList.toggle('transparent');
+    document.querySelector('.settings').classList.toggle('transparent')
 }
 function hideSettings(){
-    document.querySelector('.settings').classList.add('transparent');
+    document.querySelector('.settings').classList.add('transparent')
+}
+function showExNumber(){
+    document.querySelector('.ex-number').classList.remove('transparent')
+}
+function hideExNumber(){
+    const elExNumber = document.querySelector('.ex-number')
+
+    elExNumber.classList.add('transparent')
+    setTimeout(() => elExNumber.innerText = '', debounceInterval)
 }

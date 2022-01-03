@@ -11,18 +11,18 @@
     <div class="header-wrapper main-layout">
         <div id="msg"></div>
         <header class="main-content">
-            <!-- <img src="assets/img/logo.png" class="sm-hide" /> -->
             <section class="main-controlls">
                 <select onchange="onExSelect()" name="exercise-selector" id="exercise-selector"></select>
-                <button id="script-runner">Run</button>
+                <button id="script-runner" title="Run selected exercise (Enter)">Run</button>
             </section>
             <section class="action-buttons">
-                <button class="sm-hide" onclick="clearConsole()">Clear</button>
-                <button id="copy-btn" class="sm-hide" onclick="copyExAsComment()">Copy</button>
-                <button id="settings-btn" class="sm-hide" onclick="toggleSettings()">☰</button>
+                <button class="sm-hide" title="Clear the console (l)" onclick="clearConsole()">Clea<span class="hotkey">r</span></button>
+                <button id="copy-btn" class="sm-hide" title="Copy exercise text as comment (c)"onclick="copyExAsComment()"><span class="hotkey">C</span>opy</button>
+                <button id="settings-btn" class="sm-hide" title="Settings (s)"onclick="toggleSettings()">☰</button>
             </section>
         </header>
     </div>
+    <section class="ex-number transparent"></section>
     <section class="settings transparent">
         <section class="font-buttons">
             <p>Font Size:</p>
@@ -44,6 +44,7 @@
         <img class="logo" src="./assets/img/logo.png" />
     </aside>
     <script src="./js/include-html.js"></script>
+    <script src="./js/debounce.js"></script>
     <script src="./js/exrunner.js"></script>
 </body>
 </html>

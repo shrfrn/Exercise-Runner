@@ -183,6 +183,12 @@ button:focus {
 #copy-btn, #settings-btn{
     position: relative;
 }
+#settings-btn{
+    font-size: 0.7em;
+}
+.hotkey{
+    text-decoration: underline;
+}
 .settings {
     position: fixed;
     top: 7vh;
@@ -194,6 +200,26 @@ button:focus {
     border-radius: 6px;
     border: 1px solid rgb(178, 180, 182);
 
+    transition: opacity .3s ease-in;
+}
+.ex-number {
+    position: fixed;
+    top: 7vh;
+    right: 20px;
+    z-index: 20;
+
+    background-color: var(--background-color);
+    padding: .2em;
+    padding-bottom: .075em;
+    border-radius: 6px;
+    border: 4px solid rgb(178, 180, 182);
+
+    color: rgb(178, 180, 182);
+    font-family: consolas;
+    font-weight: 900;
+    font-size: 10rem;
+
+    opacity: 0.95;
     transition: opacity .3s ease-in;
 }
 .settings > section:not(:last-child) {
@@ -281,6 +307,9 @@ button:focus {
 }
 .transparent {
     opacity: 0;
+}
+.transparent > * {
+    pointer-events: none;
 }
 /* Toggle switch - Copied from w3s */
 
