@@ -81,7 +81,7 @@ function onEndScroll() {
     const exerciseTitles = document.querySelectorAll('.exercise h2')
     exerciseTitles.forEach(ex => gIntersectionObserver.observe(ex))
 
-    hideLogo()
+    setTimeout(hideLogo, 2300)
 }
 function onKeyDown(ev){
 

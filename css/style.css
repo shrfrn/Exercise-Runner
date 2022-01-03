@@ -176,6 +176,7 @@ button {
     height: 1.6rem;
     border-radius: 6px;
     border: 1px solid rgb(178, 180, 182);
+    cursor: pointer;
 }
 button:focus {
     outline: none;
@@ -307,6 +308,7 @@ button:focus {
 }
 .transparent {
     opacity: 0;
+    pointer-events: none;
 }
 .transparent > * {
     pointer-events: none;
