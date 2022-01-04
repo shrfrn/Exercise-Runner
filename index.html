@@ -13,12 +13,12 @@
         <header class="main-content">
             <section class="main-controlls">
                 <select onchange="onExSelect()" name="exercise-selector" id="exercise-selector"></select>
-                <button id="script-runner" title="Run selected exercise (Enter)">Run</button>
+                <button id="script-runner" title="Run selected exercise (R or Enter)"><span class="hotkey">R</span>un</button>
             </section>
             <section class="action-buttons">
-                <button class="sm-hide" title="Clear the console (r)" onclick="clearConsole()">Clea<span class="hotkey">r</span></button>
-                <button id="copy-btn" class="sm-hide" title="Copy exercise text as comment (c)"onclick="copyExAsComment()"><span class="hotkey">C</span>opy</button>
-                <button id="settings-btn" class="sm-hide" title="Settings (s)"onclick="toggleSettings()">☰</button>
+                <button class="sm-hide" title="Clear the console (L)" onclick="clearConsole()">C<span class="hotkey">l</span>ear</button>
+                <button id="copy-btn" class="sm-hide" title="Copy exercise text as comment (C)"onclick="copyExAsComment()"><span class="hotkey">C</span>opy</button>
+                <button id="settings-btn" class="sm-hide" title="Settings (S)"onclick="toggleSettings()">☰</button>
             </section>
         </header>
     </div>
@@ -27,13 +27,13 @@
         <section class="font-buttons">
             <p>Font Size:</p>
             <section>
-                <button onclick="changeFontSize(1)">A</button>
-                <button onclick="changeFontSize(-1)">a</button>
+                <button onclick="changeFontSize(1)" title="Increase font size (+)">A</button>
+                <button onclick="changeFontSize(-1)" title="Decrease font size (-)">a</button>
             </section>
         </section>
         <section class="dark-mode">
             <label>Dark Mode</label>
-            <label class="switch">
+            <label class="switch" title="Toggle dark mode (D)">
                 <input id="dark-mode-switch" type="checkbox" onclick="toggleDarkMode()">
                 <span class="slider round"></span>
             </label>

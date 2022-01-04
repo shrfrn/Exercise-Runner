@@ -85,14 +85,62 @@ function onEndScroll() {
 }
 function onKeyDown(ev){
 
-    if(ev.key === 'c'|| ev.key === 'C') return copyExAsComment()
-    if(ev.key === 'r'|| ev.key === 'R') return clearConsole()
-    if(ev.key === 's'|| ev.key === 'S') return toggleSettings()
-
+    if(handleHotkeys(ev.key)) return
     if(isNaN(ev.key)) return
 
     showExNumber()
     document.querySelector('.ex-number').innerText += ev.key
+}
+function handleHotkeys(key){
+    const hotKeyMap = {
+        c: copyExAsComment,             C: copyExAsComment,
+        l: clearConsole,                L: clearConsole,
+        s: toggleSettings,              S: toggleSettings,
+        d: toggleDarkMode,              D: toggleDarkMode,
+
+        r: () => document.querySelector('#script-runner').click(), 
+        R: () => document.querySelector('#script-runner').click(),
+        
+        '+': () => changeFontSize(1),   '-': () => changeFontSize(-1),
+    }
+    if(!hotKeyMap[key]) return false
+
+    hotKeyMap[key]()
+    return true
+    /*
+    // switch (key) {
+    //     case 'c':
+    //     case 'C':
+    //         copyExAsComment()
+    //         break;
+    //     case 'l':
+    //     case 'L':
+    //         clearConsole()
+    //         break;
+    //     case 's':
+    //     case 'S':
+    //         toggleSettings()
+    //         break;
+    //     case 'r':
+    //     case 'R':
+    //         document.querySelector('#script-runner').click()
+    //         break;
+    //     case 'd':
+    //     case 'D':
+    //         toggleDarkMode()
+    //         break;
+    //     case '+':
+    //         changeFontSize(1)
+    //         break;
+    //     case '-':
+    //         changeFontSize(-1)
+    //         break;
+    
+    //     default:
+    //         return false
+    // }
+    // return true
+    */
 }
 function jumpToExercise(){
     const elExerciseSelector = document.querySelector('#exercise-selector')
