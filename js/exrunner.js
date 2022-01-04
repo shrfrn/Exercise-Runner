@@ -96,14 +96,15 @@ function onKeyDown(ev){
 }
 function handleHotkeys(key){
     const hotKeyMap = {
-        c: copyExAsComment,             C: copyExAsComment,
-        l: clearConsole,                L: clearConsole,
-        s: toggleSettings,              S: toggleSettings,
-        d: toggleDarkMode,              D: toggleDarkMode,
-        h: toggleHelp,                  H: toggleHelp,
+        c: copyExAsComment,     C: copyExAsComment,     'ב': copyExAsComment,
+        l: clearConsole,        L: clearConsole,        'ך': clearConsole,
+        s: toggleSettings,      S: toggleSettings,      'ד': toggleSettings,    
+        d: toggleDarkMode,      D: toggleDarkMode,      'ג': toggleDarkMode,
+        h: toggleHelp,          H: toggleHelp,          'י': toggleHelp,
 
         r: () => document.querySelector('#script-runner').click(), 
         R: () => document.querySelector('#script-runner').click(),
+        'ר': () => document.querySelector('#script-runner').click(),
         
         '+': () => changeFontSize(1),       '-': () => changeFontSize(-1),
         'ArrowUp': () => nextExercise(-1),  'ArrowDown': () => nextExercise(1),
