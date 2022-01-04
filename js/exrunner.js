@@ -85,6 +85,9 @@ function onEndScroll() {
 }
 function onKeyDown(ev){
 
+    if(ev.metaKey || ev.ctrlKey) return
+    
+    ev.preventDefault()
     if(handleHotkeys(ev.key)) return
     if(isNaN(ev.key)) return
 
@@ -97,11 +100,13 @@ function handleHotkeys(key){
         l: clearConsole,                L: clearConsole,
         s: toggleSettings,              S: toggleSettings,
         d: toggleDarkMode,              D: toggleDarkMode,
+        h: toggleHelp,                  H: toggleHelp,
 
         r: () => document.querySelector('#script-runner').click(), 
         R: () => document.querySelector('#script-runner').click(),
         
-        '+': () => changeFontSize(1),   '-': () => changeFontSize(-1),
+        '+': () => changeFontSize(1),       '-': () => changeFontSize(-1),
+        'ArrowUp': () => nextExercise(-1),  'ArrowDown': () => nextExercise(1),
     }
     if(!hotKeyMap[key]) return false
 
@@ -153,6 +158,15 @@ function jumpToExercise(){
         }
     }
     hideExNumber()
+}
+function nextExercise(dir){
+    const elExerciseSelector = document.querySelector('#exercise-selector')
+
+    if(dir === -1 && +elExerciseSelector.value === 1) return
+    if(dir === 1 && +elExerciseSelector.value === gExerciseCount) return
+
+    elExerciseSelector.value = +elExerciseSelector.value + dir
+    onExSelect()
 }
 function onScrollIntoView(entries) {
     const entry = entries.find(entry => entry.isIntersecting)
@@ -217,6 +231,9 @@ function clearConsole() {
 }
 function toggleSettings(){
     document.querySelector('.settings').classList.toggle('transparent')
+}
+function toggleHelp(){
+    document.querySelector('.help').classList.toggle('transparent')
 }
 function hideSettings(){
     document.querySelector('.settings').classList.add('transparent')
