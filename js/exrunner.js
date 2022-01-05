@@ -1,17 +1,18 @@
 'use strict'
 
+import { includeHTML } from './include-html.js'
+import { debounce } from './debounce.js'
+
 const debounceInterval = 600
 const gExerciseCount = 60
 const gIntersectionObserver = new IntersectionObserver(onScrollIntoView, { threshold: .1 })
 
 var gScrollTimeout
 
+document.addEventListener('DOMContentLoaded', init)
 async function init() {
 
-    addEventListener('scroll', detectScrollEnd)
-    addEventListener('keydown', onKeyDown)
-    addEventListener('keydown', debounce(jumpToExercise, debounceInterval))
-
+    addEventListeners()
     createExerciseArticles()
 
     var prmExercises = includeHTML()
@@ -26,6 +27,20 @@ async function init() {
         console.log(err)
         throw err
     }
+}
+function addEventListeners(){
+    addEventListener('scroll', detectScrollEnd)
+    addEventListener('keydown', onKeyDown)
+    addEventListener('keydown', debounce(jumpToExercise, debounceInterval))
+
+    document.querySelector('#exercise-selector').addEventListener('change', onExSelect)
+    document.querySelector('#clr-btn').addEventListener('click', clearConsole)
+    document.querySelector('#copy-btn').addEventListener('click', copyExAsComment)
+    document.querySelector('#settings-btn').addEventListener('click', toggleSettings)
+    document.querySelector('#inc-font-btn').addEventListener('click', () => changeFontSize(1))
+    document.querySelector('#dec-font-btn').addEventListener('click', () => changeFontSize(-1))
+    document.querySelector('#dark-mode-switch').addEventListener('click', toggleDarkMode)
+    document.querySelector('.exercises').addEventListener('click', hidePopups)
 }
 function createExerciseArticles() {
 
@@ -71,7 +86,6 @@ function onExSelect() {
     elExercise.scrollIntoView({ behavior: "smooth", block: "start" })
 }
 function detectScrollEnd() {
-
     showLogo()
     clearTimeout(gScrollTimeout)
     gScrollTimeout = setTimeout(onEndScroll, 50)
@@ -85,16 +99,15 @@ function onEndScroll() {
 }
 function onKeyDown(ev){
 
-    if(ev.metaKey || ev.ctrlKey) return
-    
-    ev.preventDefault()
-    if(handleHotkeys(ev.key)) return
+    if(ev.metaKey || ev.shiftKey || ev.ctrlKey || ev.altKey) return
+
+    if(handleHotkeys(ev)) return
     if(isNaN(ev.key)) return
 
     showExNumber()
     document.querySelector('.ex-number').innerText += ev.key
 }
-function handleHotkeys(key){
+function handleHotkeys(ev){
     const hotKeyMap = {
         c: copyExAsComment,     C: copyExAsComment,     'ב': copyExAsComment,
         l: clearConsole,        L: clearConsole,        'ך': clearConsole,
@@ -109,44 +122,11 @@ function handleHotkeys(key){
         '+': () => changeFontSize(1),       '-': () => changeFontSize(-1),
         'ArrowUp': () => nextExercise(-1),  'ArrowDown': () => nextExercise(1),
     }
-    if(!hotKeyMap[key]) return false
+    if(!hotKeyMap[ev.key]) return false
+    if(ev.key === 'ArrowUp' || ev.key === 'ArrowDown') ev.preventDefault()
 
-    hotKeyMap[key]()
+    hotKeyMap[ev.key]()
     return true
-    /*
-    // switch (key) {
-    //     case 'c':
-    //     case 'C':
-    //         copyExAsComment()
-    //         break;
-    //     case 'l':
-    //     case 'L':
-    //         clearConsole()
-    //         break;
-    //     case 's':
-    //     case 'S':
-    //         toggleSettings()
-    //         break;
-    //     case 'r':
-    //     case 'R':
-    //         document.querySelector('#script-runner').click()
-    //         break;
-    //     case 'd':
-    //     case 'D':
-    //         toggleDarkMode()
-    //         break;
-    //     case '+':
-    //         changeFontSize(1)
-    //         break;
-    //     case '-':
-    //         changeFontSize(-1)
-    //         break;
-    
-    //     default:
-    //         return false
-    // }
-    // return true
-    */
 }
 function jumpToExercise(){
     const elExerciseSelector = document.querySelector('#exercise-selector')
@@ -189,18 +169,18 @@ function addScript(scriptNum) {
 }
 function changeFontSize(diff) {
     const elExercises = document.querySelector('.exercises')
-    const fontSize = getComputedStyle(elExercises).getPropertyValue('--ex-font-size')
+    const fontSize =
+        getComputedStyle(elExercises).getPropertyValue('--ex-font-size')
     elExercises.style.setProperty('--ex-font-size', +fontSize + +diff)
 }
 function toggleDarkMode() {
-
     const currentTheme = document.documentElement.getAttribute('data-theme')
 
     // Switch between `dark` and `light`
-    const switchToTheme = (currentTheme === 'dark') ? 'light' : 'dark'
+    const switchToTheme = currentTheme === 'dark' ? 'light' : 'dark'
 
     // Set our currenet theme to the new one
-    document.documentElement.setAttribute('data-theme', switchToTheme);
+    document.documentElement.setAttribute('data-theme', switchToTheme)
 }
 function copyExAsComment() {
     const elSelector = document.querySelector('#exercise-selector')
@@ -210,7 +190,7 @@ function copyExAsComment() {
     const exStr = document.querySelector(exId).innerText
     const commentStart = '/*\n'
     const commentEnd = '\n*/'
-    const commentStr = commentStart + exStr.replace(/^/mg, '// ') + commentEnd
+    const commentStr = commentStart + exStr.replace(/^/gm, '// ') + commentEnd
 
     navigator.clipboard.writeText(commentStr)
     showMsg('Copied to clipboard', 1500)
@@ -219,32 +199,34 @@ function showMsg(txt, duration) {
     const elMsg = document.getElementById('msg')
     elMsg.innerText = txt
     elMsg.style.opacity = 1
-    setTimeout(() => elMsg.style.opacity = 0, duration)
+    setTimeout(() => (elMsg.style.opacity = 0), duration)
 }
-function hideLogo(){
-    document.querySelector('.logo').classList.remove('show-logo')
+function hideLogo() {
+
+    document.querySelector('.logo').classList.add('transparent')
 }
-function showLogo(){
-    document.querySelector('.logo').classList.add('show-logo')
+function showLogo() {
+    document.querySelector('.logo').classList.remove('transparent')
 }
 function clearConsole() {
     console.clear()
 }
-function toggleSettings(){
+function toggleSettings() {
     document.querySelector('.settings').classList.toggle('transparent')
 }
-function toggleHelp(){
+function toggleHelp() {
     document.querySelector('.help').classList.toggle('transparent')
 }
-function hideSettings(){
+function hidePopups() {
     document.querySelector('.settings').classList.add('transparent')
+    document.querySelector('.help').classList.add('transparent')
 }
-function showExNumber(){
+function showExNumber() {
     document.querySelector('.ex-number').classList.remove('transparent')
 }
-function hideExNumber(){
+function hideExNumber() {
     const elExNumber = document.querySelector('.ex-number')
 
     elExNumber.classList.add('transparent')
-    setTimeout(() => elExNumber.innerText = '', debounceInterval)
+    setTimeout(() => (elExNumber.innerText = ''), debounceInterval)
 }

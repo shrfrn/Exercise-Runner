@@ -4,7 +4,7 @@
 // be triggered. The function will be called after it stops being called for
 // `wait` milliseconds.
 
-function debounce(func, wait){
+export function debounce(func, wait){
     let timeout;
   
     // This is the function that is returned and will be executed many times

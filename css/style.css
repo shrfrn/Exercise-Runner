@@ -316,12 +316,9 @@ button:focus {
     bottom: 20px;
     right: 20px;
     width: 130px;
-    opacity: 0;
     transition: opacity 2s ease-in-out;
 }
-.show-logo {
-    opacity: 1;
-}
+
 /* Helpers */
 
 .list-style-none {
