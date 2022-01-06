@@ -95,7 +95,7 @@ function onEndScroll() {
     const exerciseTitles = document.querySelectorAll('.exercise h2')
     exerciseTitles.forEach(ex => gIntersectionObserver.observe(ex))
 
-    setTimeout(hideLogo, 2300)
+    setTimeout(hideLogo, 1800)
 }
 function onKeyDown(ev){
 
@@ -202,7 +202,6 @@ function showMsg(txt, duration) {
     setTimeout(() => (elMsg.style.opacity = 0), duration)
 }
 function hideLogo() {
-
     document.querySelector('.logo').classList.add('transparent')
 }
 function showLogo() {
