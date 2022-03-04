@@ -5,23 +5,31 @@ import { debounce } from './debounce.js'
 
 const debounceInterval = 600
 const gExerciseCount = 60
-const gIntersectionObserver = new IntersectionObserver(onScrollIntoView, { threshold: .1 })
 
+var gIsAutorun = false
 var gScrollTimeout
 
+const gIntersectionObserver = new IntersectionObserver(onScrollIntoView, { threshold: .1 })
 document.addEventListener('DOMContentLoaded', init)
+
 async function init() {
 
     addEventListeners()
     createExerciseArticles()
 
     var prmExercises = includeHTML()
-
+    
     try {
         await Promise.all(prmExercises)
+
         populateDropdown()
+        loadSettings()
         onExSelect()
-        onEndScroll()
+
+        if(gIsAutorun) {
+            const scriptNum = document.querySelector('#exercise-selector').value
+            addScript(scriptNum)
+        }
 
     } catch (err) {
         console.log(err)
@@ -40,7 +48,24 @@ function addEventListeners(){
     document.querySelector('#inc-font-btn').addEventListener('click', () => changeFontSize(1))
     document.querySelector('#dec-font-btn').addEventListener('click', () => changeFontSize(-1))
     document.querySelector('#dark-mode-switch').addEventListener('click', toggleDarkMode)
+    document.querySelector('#autorun-switch').addEventListener('click', toggleAutorun)
     document.querySelector('.exercises').addEventListener('click', hidePopups)
+}
+function loadSettings(){
+    const settings = JSON.parse(localStorage.getItem('ExRunner'))
+
+    if(!settings) return
+    if(settings.fontSize) setFontSize(settings.fontSize)
+    if(settings.isDarkMode === 'dark') toggleDarkMode()
+    
+    if(settings.lastExNum ) document.querySelector('#exercise-selector').value = settings.lastExNum
+    gIsAutorun = !!settings.isAutorun
+    if(gIsAutorun) document.querySelector('#autorun-switch').checked = gIsAutorun
+}
+function saveSettings(newSettings){
+    let settings = JSON.parse(localStorage.getItem('ExRunner'))
+    settings = { ...settings, ...newSettings }
+    localStorage.setItem('ExRunner', JSON.stringify(settings))
 }
 function createExerciseArticles() {
 
@@ -70,19 +95,21 @@ function populateDropdown() {
         elDropdown.appendChild(elOption)
     }
 }
-function onExSelect() {
-
+function onExSelect() { 
     const elScriptRunner = document.querySelector('#script-runner')
     
+    // const scriptNum = localStorage.ExRunner.lastExNum
     const scriptNum = document.querySelector('#exercise-selector').value
+    saveSettings({ lastExNum: scriptNum })
+    
     const exId = '#ex-' + scriptNum
     const elExercise = document.querySelector(exId)
-
+    
     gIntersectionObserver.disconnect()
-
+     
     elScriptRunner.onclick = addScript.bind(null, scriptNum)
     elScriptRunner.focus()
-
+     
     elExercise.scrollIntoView({ behavior: "smooth", block: "start" })
 }
 function detectScrollEnd() {
@@ -91,7 +118,6 @@ function detectScrollEnd() {
     gScrollTimeout = setTimeout(onEndScroll, 50)
 }
 function onEndScroll() {
-
     const exerciseTitles = document.querySelectorAll('.exercise h2')
     exerciseTitles.forEach(ex => gIntersectionObserver.observe(ex))
 
@@ -113,6 +139,7 @@ function handleHotkeys(ev){
         l: clearConsole,        L: clearConsole,        'ך': clearConsole,
         s: toggleSettings,      S: toggleSettings,      'ד': toggleSettings,    
         d: toggleDarkMode,      D: toggleDarkMode,      'ג': toggleDarkMode,
+        a: toggleAutorun,       A: toggleAutorun,       'ש': toggleAutorun,
         h: toggleHelp,          H: toggleHelp,          'י': toggleHelp,
 
         r: () => document.querySelector('#script-runner').click(), 
@@ -121,6 +148,7 @@ function handleHotkeys(ev){
         
         '+': () => changeFontSize(1),       '-': () => changeFontSize(-1),
         'ArrowUp': () => nextExercise(-1),  'ArrowDown': () => nextExercise(1),
+        'Escape': hideModals,
     }
     if(!hotKeyMap[ev.key]) return false
     if(ev.key === 'ArrowUp' || ev.key === 'ArrowDown') ev.preventDefault()
@@ -150,6 +178,8 @@ function nextExercise(dir){
     onExSelect()
 }
 function onScrollIntoView(entries) {
+
+    // entries.forEach(entry => {if(entry.isIntersecting) console.log(entry.target.parentNode.id)})
     const entry = entries.find(entry => entry.isIntersecting)
     if (!entry) return
 
@@ -169,18 +199,35 @@ function addScript(scriptNum) {
 }
 function changeFontSize(diff) {
     const elExercises = document.querySelector('.exercises')
-    const fontSize =
-        getComputedStyle(elExercises).getPropertyValue('--ex-font-size')
-    elExercises.style.setProperty('--ex-font-size', +fontSize + +diff)
+    const fontSize = +getComputedStyle(elExercises).getPropertyValue('--ex-font-size')
+    const newFontSize = fontSize + diff
+
+    setFontSize(newFontSize)
+    saveSettings({ fontSize: newFontSize })
+}
+function setFontSize(fontSize){
+    const elExercises = document.querySelector('.exercises')
+    elExercises.style.setProperty('--ex-font-size', fontSize)
 }
 function toggleDarkMode() {
+    const elDarkModeSwitch = document.querySelector('#dark-mode-switch')
+    
     const currentTheme = document.documentElement.getAttribute('data-theme')
-
+    const isDarkMode = (currentTheme === 'dark')
+    
     // Switch between `dark` and `light`
-    const switchToTheme = currentTheme === 'dark' ? 'light' : 'dark'
-
+    const switchToTheme = isDarkMode ? 'light' : 'dark'
+    elDarkModeSwitch.checked = !isDarkMode
     // Set our currenet theme to the new one
     document.documentElement.setAttribute('data-theme', switchToTheme)
+    saveSettings({ isDarkMode: switchToTheme })
+}
+function toggleAutorun(){
+    const elAutorunSwitch = document.querySelector('#autorun-switch')
+    
+    gIsAutorun = !gIsAutorun
+    saveSettings({ isAutorun: gIsAutorun })
+    elAutorunSwitch.checked = gIsAutorun
 }
 function copyExAsComment() {
     const elSelector = document.querySelector('#exercise-selector')
@@ -228,4 +275,8 @@ function hideExNumber() {
 
     elExNumber.classList.add('transparent')
     setTimeout(() => (elExNumber.innerText = ''), debounceInterval)
+}
+function hideModals(){
+    document.querySelector('.help').classList.add('transparent')
+    document.querySelector('.settings').classList.add('transparent')
 }

@@ -183,13 +183,15 @@ button:focus {
 #copy-btn, #settings-btn{
     position: relative;
 }
-#settings-btn{
+/* #settings-btn{
     font-size: 0.7em;
-}
+} */
 .hotkey{
     text-decoration: underline;
 }
 .settings {
+    width: 200px;
+
     position: fixed;
     top: 7vh;
     right: 20px;
@@ -201,6 +203,17 @@ button:focus {
     border: 1px solid rgb(178, 180, 182);
 
     transition: opacity .3s ease-in;
+}
+.settings > * {
+    display: flex;
+    justify-content: space-between;    
+}
+.settings > section:not(:last-child) {
+    border-bottom: 1px solid rgb(178, 180, 182);
+    height: 2.4em;
+}
+.settings p {
+    margin-bottom: 0;
 }
 .ex-number {
     position: fixed;
@@ -221,13 +234,6 @@ button:focus {
 
     opacity: 0.95;
     transition: opacity .3s ease-in;
-}
-.settings > section:not(:last-child) {
-    border-bottom: 1px solid rgb(178, 180, 182);
-    height: 2.4em;
-}
-.settings p {
-    margin-bottom: 0;
 }
 .help{
     position: fixed;
@@ -257,7 +263,7 @@ button:focus {
     text-align: center;
     font-size: 1.3em;
 }
-.dark-mode {
+.dark-mode, .autorun {
     margin-top: 0.8em;
 }
 #msg {
