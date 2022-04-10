@@ -1,6 +1,7 @@
 PAT.txt
 ex
 .vscode
+**/.DS_Store
 exrunner copy.js
 exrunner copy 2.js
 event-handlers.js
