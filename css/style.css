@@ -263,7 +263,7 @@ button:focus {
     text-align: center;
     font-size: 1.3em;
 }
-.dark-mode, .autorun {
+.dark-mode, .autorun, .snap-to-top {
     margin-top: 0.8em;
 }
 #msg {

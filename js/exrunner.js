@@ -7,6 +7,8 @@ const debounceInterval = 600
 const gExerciseCount = 60
 
 var gIsAutorun = false
+var gIsSnapToTop = false
+
 var gScrollTimeout
 var gExSelectorReady
 
@@ -53,6 +55,7 @@ function addEventListeners(){
     document.querySelector('#dec-font-btn').addEventListener('click', () => changeFontSize(-1))
     document.querySelector('#dark-mode-switch').addEventListener('click', toggleDarkMode)
     document.querySelector('#autorun-switch').addEventListener('click', toggleAutorun)
+    document.querySelector('#snap-switch').addEventListener('click', toggleSnapToTop)
     document.querySelector('.exercises').addEventListener('click', hidePopups)
 }
 function loadSettings(){
@@ -99,7 +102,7 @@ function populateDropdown() {
         elDropdown.appendChild(elOption)
     }
 }
-function onExSelect() { 
+function onExSelect(snapToTop = true) { 
     const elScriptRunner = document.querySelector('#script-runner')
     
     // const scriptNum = localStorage.ExRunner.lastExNum
@@ -113,8 +116,8 @@ function onExSelect() {
      
     elScriptRunner.onclick = addScript.bind(null, scriptNum)
     elScriptRunner.focus()
-     
-    elExercise.scrollIntoView({ behavior: "smooth", block: "start" })
+    
+    if(snapToTop) elExercise.scrollIntoView({ behavior: "smooth", block: "start" })
 }
 function detectScrollEnd() {
     showLogo()
@@ -145,6 +148,7 @@ function handleHotkeys(ev){
         d: toggleDarkMode,      D: toggleDarkMode,      'ג': toggleDarkMode,
         a: toggleAutorun,       A: toggleAutorun,       'ש': toggleAutorun,
         h: toggleHelp,          H: toggleHelp,          'י': toggleHelp,
+        p: toggleSnapToTop,     P: toggleSnapToTop,     'פ': toggleSnapToTop,
 
         r: () => document.querySelector('#script-runner').click(), 
         R: () => document.querySelector('#script-runner').click(),
@@ -192,7 +196,7 @@ function onScrollIntoView(entries) {
     const exId = entry.target.parentNode.id.split('-')[1]
 
     elSelector.value = exId
-    onExSelect()
+    onExSelect(gIsSnapToTop)
 }
 function addScript(scriptNum) {
     //Append the requested script
@@ -234,6 +238,13 @@ function toggleAutorun(){
     gIsAutorun = !gIsAutorun
     saveSettings({ isAutorun: gIsAutorun })
     elAutorunSwitch.checked = gIsAutorun
+}
+function toggleSnapToTop(){
+    const elSnapSwitch = document.querySelector('#snap-switch')
+    
+    gIsSnapToTop = !gIsSnapToTop
+    saveSettings({ isSnapToTop: gIsSnapToTop })
+    elSnapSwitch.checked = gIsSnapToTop
 }
 function copyExAsComment() {
     const elSelector = document.querySelector('#exercise-selector')
