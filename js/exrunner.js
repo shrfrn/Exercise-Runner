@@ -8,21 +8,25 @@ const gExerciseCount = 60
 
 var gIsAutorun = false
 var gScrollTimeout
+var gExSelectorReady
 
 const gIntersectionObserver = new IntersectionObserver(onScrollIntoView, { threshold: .1 })
 document.addEventListener('DOMContentLoaded', init)
 
 async function init() {
 
+    gExSelectorReady = false
     addEventListeners()
     createExerciseArticles()
-
+    
     var prmExercises = includeHTML()
     
     try {
         await Promise.all(prmExercises)
-
+        
         populateDropdown()
+        gExSelectorReady = true
+
         loadSettings()
         onExSelect()
 
@@ -179,7 +183,8 @@ function nextExercise(dir){
 }
 function onScrollIntoView(entries) {
 
-    // entries.forEach(entry => {if(entry.isIntersecting) console.log(entry.target.parentNode.id)})
+    if(!gExSelectorReady) return
+
     const entry = entries.find(entry => entry.isIntersecting)
     if (!entry) return
 
@@ -218,6 +223,7 @@ function toggleDarkMode() {
     // Switch between `dark` and `light`
     const switchToTheme = isDarkMode ? 'light' : 'dark'
     elDarkModeSwitch.checked = !isDarkMode
+    
     // Set our currenet theme to the new one
     document.documentElement.setAttribute('data-theme', switchToTheme)
     saveSettings({ isDarkMode: switchToTheme })
