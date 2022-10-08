@@ -47,20 +47,22 @@
         <p>
             Implement the <span class="code">playBingo</span> function:
         </p>
-        <!-- <pre class="code">
-            function playBingo(){
-                var isVictory = false
-                while(!isVictory){
-                    var calledNum = drawNum()
-                    for(var i = 0; i &lt; gPlayers.length && !isVictory; i++){
-                        var player = gPlayers[i]
-                        markBoard(player, calledNum)
-                        isVictory = checkBingo(player)
-                    }
-                }
+        <div class="code-block">
+            <button class="copy-play-bingo-func">Copy</button>
+            <pre class="code play-bingo-func">
+    function playBingo(){
+        var isVictory = false
+        while(!isVictory){
+            var calledNum = drawNum()
+            for(var i = 0; i &lt; gPlayers.length && !isVictory; i++){
+                var player = gPlayers[i]
+                markBoard(player, calledNum)
+                isVictory = checkBingo(player)
             }
-        </pre> -->
-        <div class="play-bingo-img"><img src="../assets/img/Play Bingo Function.png" alt=""></div>
+        }
+    }        </pre>
+        </div>
+        <!-- <div class="play-bingo-img"><img src="../assets/img/Play Bingo Function.png" alt=""></div> -->
     </li>
     <li>
         <p>

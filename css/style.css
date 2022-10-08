@@ -56,6 +56,22 @@ pre{
     padding-inline-start: 4px;
     padding-inline-end: 8px;
 }
+.code-block{
+    position: relative;
+    background-color: #eaeaea;
+    padding-block: 10px;
+    margin-bottom: 20px;
+}
+.code-block button {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    opacity: .2;
+    transition: opacity 1s ease-in-out;
+}
+.code-block:hover button {
+    opacity: 1;
+}
 .console {
     font-family: Consolas;
     font-weight: bold;
