@@ -58,6 +58,9 @@ function addEventListeners(){
     document.querySelector('#snap-switch').addEventListener('click', toggleSnapToTop)
     document.querySelector('.exercises').addEventListener('click', hidePopups)
 }
+function onError(ev){
+    console.log('err', ev);
+}
 function loadSettings(){
     const settings = JSON.parse(localStorage.getItem('ExRunner'))
 
@@ -201,9 +204,16 @@ function onScrollIntoView(entries) {
 function addScript(scriptNum) {
     //Append the requested script
     const elScript = document.createElement('script')
+    const scriptName = (scriptNum > 9 ? scriptNum : '0' + scriptNum) + '.js'
+    
     elScript.type = 'text/javascript'
     elScript.className = 'studentScript'
-    elScript.src = 'ex/' + (scriptNum > 9 ? scriptNum : '0' + scriptNum) + '.js'
+    elScript.src = 'ex/' + scriptName
+    
+    elScript.addEventListener('error', () => {
+        console.clear()
+        console.log(`Coundn't find the script ${scriptName}...`)
+    }) 
     document.head.appendChild(elScript)
 }
 function changeFontSize(diff) {
