@@ -58,7 +58,7 @@ pre{
 }
 .code-block{
     position: relative;
-    background-color: #eaeaea;
+    background-color: hsl(0, 0%, 99%);
     padding-block: 10px;
     margin-bottom: 20px;
 }

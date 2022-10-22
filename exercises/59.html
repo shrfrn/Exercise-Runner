@@ -52,8 +52,10 @@
             <pre class="code play-bingo-func">
  function playBingo(){
     var isVictory = false
+
     while(!isVictory){
       var calledNum = drawNum()
+      
       for(var i = 0; i &lt; gPlayers.length && !isVictory; i++){
         var player = gPlayers[i]
         markBoard(player, calledNum)
