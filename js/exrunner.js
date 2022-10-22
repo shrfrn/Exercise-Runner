@@ -268,14 +268,15 @@ function copyExAsComment() {
     const commentStr = commentStart + exStr.replace(/^/gm, '// ') + commentEnd
 
     navigator.clipboard.writeText(commentStr)
-    showMsg('Copied to clipboard', 1500)
+    showMsg('Copied to clipboard')
 }
 function copyText(selector){
     const elTxt = document.querySelector(selector)
     navigator.clipboard.writeText(elTxt.innerText)
+    showMsg('Copied to clipboard', 1500, '.play-bingo-msg')
 }
-function showMsg(txt, duration) {
-    const elMsg = document.getElementById('msg')
+function showMsg(txt, duration = 1500, selector = '#msg') {
+    const elMsg = document.querySelector(selector)
     elMsg.innerText = txt
     elMsg.style.opacity = 1
     setTimeout(() => (elMsg.style.opacity = 0), duration)

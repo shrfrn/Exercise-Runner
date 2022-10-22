@@ -282,7 +282,7 @@ button:focus {
 .dark-mode, .autorun, .snap-to-top {
     margin-top: 0.8em;
 }
-#msg {
+#msg, .play-bingo-msg {
     position: absolute;
     top: 10vh;
     right: 1rem;
@@ -299,6 +299,10 @@ button:focus {
     color: var(--text-color);
     transition: 1s;
     opacity: 0;
+}
+.play-bingo-msg{
+    top: 28px;
+    right: 80px;
 }
 .font-buttons {
     display: flex;
