@@ -18,15 +18,16 @@ document.addEventListener('DOMContentLoaded', init)
 async function init() {
 
     gExSelectorReady = false
-    addEventListeners()
-    createExerciseArticles()
     
+    createExerciseArticles()
     var prmExercises = includeHTML()
     
     try {
         await Promise.all(prmExercises)
         
+        addEventListeners()
         populateDropdown()
+        
         gExSelectorReady = true
 
         loadSettings()
@@ -50,6 +51,7 @@ function addEventListeners(){
     document.querySelector('#exercise-selector').addEventListener('change', onExSelect)
     document.querySelector('#clr-btn').addEventListener('click', clearConsole)
     document.querySelector('#copy-btn').addEventListener('click', copyExAsComment)
+    document.querySelector('.copy-play-bingo-func').addEventListener('click', () => copyText('.play-bingo-func'))
     document.querySelector('#settings-btn').addEventListener('click', toggleSettings)
     document.querySelector('#inc-font-btn').addEventListener('click', () => changeFontSize(1))
     document.querySelector('#dec-font-btn').addEventListener('click', () => changeFontSize(-1))
@@ -267,6 +269,10 @@ function copyExAsComment() {
 
     navigator.clipboard.writeText(commentStr)
     showMsg('Copied to clipboard', 1500)
+}
+function copyText(selector){
+    const elTxt = document.querySelector(selector)
+    navigator.clipboard.writeText(elTxt.innerText)
 }
 function showMsg(txt, duration) {
     const elMsg = document.getElementById('msg')
