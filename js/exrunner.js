@@ -58,9 +58,6 @@ function addEventListeners(){
     document.querySelector('#snap-switch').addEventListener('click', toggleSnapToTop)
     document.querySelector('.exercises').addEventListener('click', hidePopups)
 }
-function onError(ev){
-    console.log('err', ev);
-}
 function loadSettings(){
     const settings = JSON.parse(localStorage.getItem('ExRunner'))
 
@@ -170,13 +167,15 @@ function handleHotkeys(ev){
 function jumpToExercise(){
     const elExerciseSelector = document.querySelector('#exercise-selector')
     const elExNumber = document.querySelector('.ex-number')
+    const exNumber = +elExNumber.innerText
 
-    if(!isNaN(elExNumber.innerText)){
-        if(+elExNumber.innerText > 0 && +elExNumber.innerText <= gExerciseCount){
-            elExerciseSelector.value = +elExNumber.innerText
+    if(!isNaN(exNumber)){
+        if(+exNumber > 0 && +exNumber <= gExerciseCount){
+            elExerciseSelector.value = +exNumber
             onExSelect()
         }
     }
+    elExNumber.innerText = ''
     hideExNumber()
 }
 function nextExercise(dir){
@@ -299,9 +298,7 @@ function showExNumber() {
 }
 function hideExNumber() {
     const elExNumber = document.querySelector('.ex-number')
-
     elExNumber.classList.add('transparent')
-    setTimeout(() => (elExNumber.innerText = ''), debounceInterval)
 }
 function hideModals(){
     document.querySelector('.help').classList.add('transparent')

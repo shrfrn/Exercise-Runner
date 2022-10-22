@@ -233,7 +233,7 @@ button:focus {
     font-size: 10rem;
 
     opacity: 0.95;
-    transition: opacity .3s ease-in;
+    /* transition: opacity .3s ease-in; */
 }
 .help{
     position: fixed;
