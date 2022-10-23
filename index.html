@@ -12,10 +12,11 @@
         <div id="msg"></div>
         <header class="main-content">
             <section class="main-controlls">
-                <select name="exercise-selector" id="exercise-selector"></select>
-                <button id="script-runner" title="Run selected exercise (R or Enter)"><span class="hotkey">R</span>un</button>
+                <select name="exercise-selector" id="exercise-selector" class="xxsm-hide"></select>
+                <button id="script-runner" class="xsm-hide" title="Run selected exercise (R or Enter)"><span class="hotkey">R</span>un</button>
             </section>
             <section class="action-buttons">
+                <button id="help-btn" class="sm-hide" title="Help (H)"><span class="hotkey">H</span>elp</button>
                 <button id="clr-btn" class="sm-hide" title="Clear the console (L)">C<span class="hotkey">l</span>ear</button>
                 <button id="copy-btn" class="sm-hide" title="Copy exercise text as comment (C)"><span class="hotkey">C</span>opy</button>
                 <button id="settings-btn" class="sm-hide" title="Settings (S)">☰</button>
@@ -38,15 +39,19 @@
             </tr>
             <tr>
                 <td class="hotkey">s</td>
-                <td>Toggle Settings window</td>
+                <td>Toggle settings window</td>
             </tr>
             <tr>
                 <td class="hotkey">d</td>
-                <td>Toggle Dark Mode</td>
+                <td>Toggle dark mode</td>
             </tr>
             <tr>
                 <td class="hotkey">a</td>
-                <td>Toggle Auto Run</td>
+                <td>Toggle auto run</td>
+            </tr>
+            <tr>
+                <td class="hotkey">p</td>
+                <td>Toggle snap to top</td>
             </tr>
             <tr>
                 <td class="hotkey">r</td>
@@ -66,7 +71,7 @@
             </tr>
             <tr>
                 <td class="hotkey">&darr;&uarr;</td>
-                <td>Next / Prev Exercise</td>
+                <td>Next / Prev exercise</td>
             </tr>
         </table>
     </section>

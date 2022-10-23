@@ -49,15 +49,16 @@ function addEventListeners(){
     addEventListener('keydown', debounce(jumpToExercise, debounceInterval))
 
     document.querySelector('#exercise-selector').addEventListener('change', onExSelect)
+    document.querySelector('#help-btn').addEventListener('click', toggleHelp)
     document.querySelector('#clr-btn').addEventListener('click', clearConsole)
     document.querySelector('#copy-btn').addEventListener('click', copyExAsComment)
-    document.querySelector('.copy-play-bingo-func').addEventListener('click', () => copyText('.play-bingo-func'))
     document.querySelector('#settings-btn').addEventListener('click', toggleSettings)
     document.querySelector('#inc-font-btn').addEventListener('click', () => changeFontSize(1))
     document.querySelector('#dec-font-btn').addEventListener('click', () => changeFontSize(-1))
     document.querySelector('#dark-mode-switch').addEventListener('click', toggleDarkMode)
     document.querySelector('#autorun-switch').addEventListener('click', toggleAutorun)
     document.querySelector('#snap-switch').addEventListener('click', toggleSnapToTop)
+    document.querySelector('.copy-play-bingo-func').addEventListener('click', () => copyText('.play-bingo-func'))
     document.querySelector('.exercises').addEventListener('click', hidePopups)
 }
 function loadSettings(){
@@ -66,6 +67,7 @@ function loadSettings(){
     if(!settings) return
     if(settings.fontSize) setFontSize(settings.fontSize)
     if(settings.isDarkMode === 'dark') toggleDarkMode()
+    if(settings.isSnapToTop) toggleSnapToTop()
     
     if(settings.lastExNum ) document.querySelector('#exercise-selector').value = settings.lastExNum
     gIsAutorun = !!settings.isAutorun
@@ -127,6 +129,7 @@ function detectScrollEnd() {
     gScrollTimeout = setTimeout(onEndScroll, 50)
 }
 function onEndScroll() {
+    console.log('Hi')
     const exerciseTitles = document.querySelectorAll('.exercise h2')
     exerciseTitles.forEach(ex => gIntersectionObserver.observe(ex))
 

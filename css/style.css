@@ -467,8 +467,13 @@ input:checked + .slider:before {
     margin-block: 40px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 550px) {
     .sm-hide {
+      display: none;
+    }
+}
+@media (max-width: 390px) {
+    .xsm-hide {
       display: none;
     }
 }
