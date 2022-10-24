@@ -259,6 +259,7 @@ function toggleSnapToTop(){
     gIsSnapToTop = !gIsSnapToTop
     saveSettings({ isSnapToTop: gIsSnapToTop })
     elSnapSwitch.checked = gIsSnapToTop
+    onExSelect()
 }
 function copyExAsComment() {
     const elSelector = document.querySelector('#exercise-selector')
