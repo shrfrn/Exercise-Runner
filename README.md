@@ -27,7 +27,7 @@ If you do not see the **Open with Live Server** option in the menu - you probabl
 
 The solution scripts for all exercises should be saved to the **ex** folder which is found inside the main **Exercise-Runner** folder (see the screenshot bellow). 
 
-![Folder structure](Exercise%20Runner%20-%20User%20Manual%20a4e853d8051344d19b99bcf0440cdcc7/finder.png)
+![Folder structure](./assets/readme-img/settings.png)
 
 Folder structure
 
@@ -41,7 +41,7 @@ The runner’s two main functions are displaying the exercises and running the e
 
 ### The toolbar
 
-![toolbar.png](Exercise%20Runner%20-%20User%20Manual%20a4e853d8051344d19b99bcf0440cdcc7/toolbar.png)
+![toolbar.png](./assets/readme-img/toolbar.png)
 
 The toolbar is the main user interface element of the exercise runner. The table bellow summarizes Its controls and their function (from left to right).
 
@@ -56,9 +56,9 @@ The toolbar is the main user interface element of the exercise runner. The table
 
 ### Running the selected exercise
 
-To run an exercise script, first navigating to that exercise by using the **exercise selector** or any of the navigation methods described in the [next section](https://www.notion.so/Exercise-Runner-User-Manual-a4e853d8051344d19b99bcf0440cdcc7), and then use the **Run** button to load and execute that script.
+To run an exercise script, first navigating to that exercise by using the **exercise selector** or any of the navigation methods described in the [next section](#navigation), and then use the **Run** button to load and execute that script.
 
-![run.png](Exercise%20Runner%20-%20User%20Manual%20a4e853d8051344d19b99bcf0440cdcc7/run.png)
+![run.png](./assets/readme-img/run-btn.png)
 
 ## Navigation
 
@@ -68,7 +68,7 @@ There are several ways to navigate between the different exercises.
 
 Click anywhere in the exercise selector dropdown to reveal a list of all exercises. Select an exercise to scroll it into view.
 
-![The exercise selector dropdown](Exercise%20Runner%20-%20User%20Manual%20a4e853d8051344d19b99bcf0440cdcc7/wxsel.png)
+![The exercise selector dropdown](/assets/readme-img/ex-selector.png)
 
 The exercise selector dropdown
 
@@ -84,7 +84,7 @@ The up and down arrow keys can be used to scroll one exercise forwards or backwa
 
 ### Scrolling
 
-Scrolling freely through the exercises will set the selected exercise as it enters the viewport. If the ***[Snap to top](https://www.notion.so/Exercise-Runner-User-Manual-a4e853d8051344d19b99bcf0440cdcc7)*** option is enabled, then the exercise heading will automatically snap to the top of the viewport, regardless of how far down it has been scrolled.
+Scrolling freely through the exercises will set the selected exercise as it enters the viewport. If the ***[Snap to top](#snap-to-top)*** option is enabled, then the exercise heading will automatically snap to the top of the viewport, regardless of how far down it has been scrolled.
 
 ## Features
 
@@ -100,7 +100,7 @@ Clears all previous output from the console.
 
 Access the settings panel from the hamburger menu at the right end of the toolbar. 
 
-![The settings panel](Exercise%20Runner%20-%20User%20Manual%20a4e853d8051344d19b99bcf0440cdcc7/settings.png)
+![The settings panel](./assets/readme-img/settings.png)
 
 The settings panel
 
