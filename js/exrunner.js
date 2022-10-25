@@ -129,7 +129,6 @@ function detectScrollEnd() {
     gScrollTimeout = setTimeout(onEndScroll, 50)
 }
 function onEndScroll() {
-    console.log('Hi')
     const exerciseTitles = document.querySelectorAll('.exercise h2')
     exerciseTitles.forEach(ex => gIntersectionObserver.observe(ex))
 
