@@ -27,7 +27,7 @@ If you do not see the **Open with Live Server** option in the menu - you probabl
 
 The solution scripts for all exercises should be saved to the **ex** folder which is found inside the main **Exercise-Runner** folder (see the screenshot bellow). 
 
-![Folder structure](./assets/readme-img/settings.png)
+![Folder structure](./assets/readme-img/finder.png)
 
 Folder structure
 
